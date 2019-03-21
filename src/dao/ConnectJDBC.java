@@ -2,7 +2,7 @@ package dao;
 
 import java.sql.*;
 
-public class MyJDBC {
+public class ConnectJDBC {
 
     public static Connection getConnection() {
         Connection connection = null;

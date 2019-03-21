@@ -1,10 +1,13 @@
 import Service.InfoTips;
+import dao.Control;
 
 import java.util.Scanner;
 
 public class OperatorInterface {
     public static void main(String[] args) {
-
+        // 程序运行就访问数据库,将数据进行填充
+        Control control = new Control();
+        //选择操作界面
         boolean flag = false;
         do {
             InfoTips.showInfo();
@@ -12,7 +15,7 @@ public class OperatorInterface {
             Scanner scanner = new Scanner(System.in);
             switch (scanner.nextInt()) {
                 case 1:
-                    //查询
+                    //查询学生表
                     break;
                 case 2:
                     break;
