@@ -9,6 +9,7 @@ public class StudentTable {
     private String zhuanyeming;
     private int xingbie;
     private Date chushengshijian;
+    private int zhongxuefen;
     private Blob zhaopian;
     private int age;
 
@@ -66,5 +67,13 @@ public class StudentTable {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public int getZhongxuefen() {
+        return zhongxuefen;
+    }
+
+    public void setZhongxuefen(int zhongxuefen) {
+        this.zhongxuefen = zhongxuefen;
     }
 }
