@@ -7,11 +7,11 @@ public class StudentTable {
     private String xuehao;
     private String xingming;
     private String zhuanyeming;
-    private int xingbie;
+    private Integer xingbie;
     private Date chushengshijian;
-    private int zhongxuefen;
+    private Integer zhongxuefen;
     private Blob zhaopian;
-    private int age;
+    private Integer age;
 
     public String getXuehao() {
         return xuehao;
@@ -37,9 +37,7 @@ public class StudentTable {
         this.zhuanyeming = zhuanyeming;
     }
 
-    public int getXingbie() {
-        return xingbie;
-    }
+
 
     public void setXingbie(int xingbie) {
         this.xingbie = xingbie;
@@ -61,16 +59,34 @@ public class StudentTable {
         this.zhaopian = zhaopian;
     }
 
-    public int getAge() {
-        return age;
-    }
+
 
     public void setAge(int age) {
         this.age = age;
     }
 
-    public int getZhongxuefen() {
+    public Integer getXingbie() {
+        return xingbie;
+    }
+
+    public void setXingbie(Integer xingbie) {
+        this.xingbie = xingbie;
+    }
+
+    public Integer getZhongxuefen() {
         return zhongxuefen;
+    }
+
+    public void setZhongxuefen(Integer zhongxuefen) {
+        this.zhongxuefen = zhongxuefen;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public void setZhongxuefen(int zhongxuefen) {
