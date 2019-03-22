@@ -22,6 +22,7 @@ public class ParmCon {
     /**
      * 学生表字段信息
      */
+    public static final String STUDETNT_TABLE="xs";
     public static class StudentParm{
         public static final String XUEHAO="学号";
         public static final String XINGMING="姓名";

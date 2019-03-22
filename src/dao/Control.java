@@ -4,6 +4,7 @@ import com.mysql.jdbc.PreparedStatement;
 import dao.DO.ParmCon;
 import dao.DO.StudentTable;
 import dao.util.ConnectJDBC;
+import dao.util.SqlUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,29 +16,20 @@ import java.util.List;
 /**
  * control 类 中有很多内部类实现控制
  */
-public  class Control {
+public class Control {
     private List<StudentTable> list = new ArrayList<>();
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultSet = null;
-    private String sql = "select * from xs";
+
 
     public Control() {
-        connection = ConnectJDBC.getConnection();
-        try {
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(sql);
-            resultSet = statement.executeQuery();
-            this.list = new DealResultSet().dealReasult(resultSet);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
 
     }
 
 
     private class DealResultSet {
-        public List<StudentTable> dealReasult(ResultSet resultSet) {
+        public List<StudentTable> ResultSet(ResultSet resultSet,String sql) {
             try {
                 statement = (PreparedStatement) connection.prepareStatement(sql);
                 resultSet = statement.executeQuery();
@@ -56,33 +48,62 @@ public  class Control {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+
             }
             return list;
         }
     }
 
-    private  class Update {
-        public  void update() {
+    private class Update {
+        // todo:需要传入list进行,还有这个实体类,这个实体类拥有插入的数据
+        public void update(String sql, Object... obj) {
 
+            connection = ConnectJDBC.getConnection();
+
+            int result = -1;
+            try {
+
+
+                System.out.println(sql);
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement(sql.toString());
+
+
+                for (int i = 0; i < obj.length; i++) {
+                    statement.setObject(i+1, obj[i]);
+                }
+
+
+                result = statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                //todo:关闭这个连接
+            }
+
+            if (result == 1) {
+                System.out.println("跟新成功");
+            } else {
+                System.out.println("跟新失败");
+            }
         }
 
 
     }
 
-    private  class Query {
-        public  void query() {
-
-        }
-    }
-
-    private  class Insert {
-        public  void insert() {
-
-        }
-    }
-
-    private  class Add {
-        public  void add() {
+    private class Query {
+        public void query(String sql) {
+            connection = ConnectJDBC.getConnection();
+            try {
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement(sql);
+                resultSet = statement.executeQuery();
+                list = new DealResultSet().ResultSet(resultSet,sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                //todo:关闭这个连接
+            }
+            // todo:这个地方将数据格式化
             for (StudentTable s :
                     list) {
                 System.out.println(s.getAge());
@@ -90,19 +111,33 @@ public  class Control {
         }
     }
 
-    public  void selected(int num) {
-        switch (num){
+    private class Insert {
+        public void insert(StudentTable studentTable) {
+
+        }
+    }
+
+    private class Add {
+        public void add() {
+
+        }
+    }
+
+    public void selected(int num, String sql, Object... objects) {
+        switch (num) {
             case 1:
-                new Add().add();
+                new Query().query(sql);
                 break;
             case 2:
                 break;
             case 3:
+                new Update().update(sql, objects);
                 break;
             case 4:
                 break;
         }
     }
+
 
     public static class TestControl {
         public static void main(String[] args) {
