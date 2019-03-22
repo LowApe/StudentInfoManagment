@@ -40,4 +40,13 @@ public class ParmCon {
         public static final String CHENGJI="成绩";
         public static final String XUEFEn="学分";
     }
+
+    /**
+     * 测试类是否能运行成功
+     */
+    public static class TestParmCon{
+        public static void main(String[] args) {
+            System.out.println(URL);
+        }
+    }
 }
