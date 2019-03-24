@@ -3,8 +3,7 @@ package dao;
 import com.mysql.jdbc.PreparedStatement;
 import dao.DO.ParmCon;
 import dao.DO.StudentTable;
-import dao.util.ConnectJDBC;
-import dao.util.SqlUtil;
+import util.ConnectJDBC;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -42,7 +41,7 @@ public class Control {
                     studentTable.setXingbie(resultSet.getInt(ParmCon.StudentParm.XINGBIE));
                     studentTable.setChushengshijian(resultSet.getDate(ParmCon.StudentParm.CHUSHENGSHIJIAN));
                     studentTable.setZhongxuefen(resultSet.getInt(ParmCon.StudentParm.ZONGXUEFEN));
-                    studentTable.setZhaopian(resultSet.getBlob(ParmCon.StudentParm.ZHAOPIAN));
+                    studentTable.setZhaopian(resultSet.getBytes(ParmCon.StudentParm.ZHAOPIAN));
                     studentTable.setAge(resultSet.getInt(ParmCon.StudentParm.AGE));
                     list.add(studentTable);
                 }
@@ -63,17 +62,10 @@ public class Control {
 
             int result = -1;
             try {
-
-
-                System.out.println(sql);
-                PreparedStatement statement = (PreparedStatement) connection.prepareStatement(sql.toString());
-
-
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement(sql);
                 for (int i = 0; i < obj.length; i++) {
                     statement.setObject(i+1, obj[i]);
                 }
-
-
                 result = statement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -112,8 +104,26 @@ public class Control {
     }
 
     private class Insert {
-        public void insert(StudentTable studentTable) {
+        public void insert(String sql) {
+            connection = ConnectJDBC.getConnection();
 
+            int result = -1;
+            try {
+                System.out.println(sql);
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement(sql);
+                result = statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                //todo:关闭这个连接
+            }
+
+            if (result == 1) {
+                System.out.println("跟新成功");
+            } else {
+                //todo:插入前先搜索主键是否唯一
+                System.out.println("跟新失败");
+            }
         }
     }
 
@@ -134,6 +144,10 @@ public class Control {
                 new Update().update(sql, objects);
                 break;
             case 4:
+                new Insert().insert(sql);
+                break;
+            case 5:
+
                 break;
         }
     }

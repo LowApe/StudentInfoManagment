@@ -10,8 +10,17 @@ public class StudentTable {
     private Integer xingbie;
     private Date chushengshijian;
     private Integer zhongxuefen;
-    private Blob zhaopian;
+    private byte[] zhaopian;
+    private String beizhu;
     private Integer age;
+
+    public byte[] getZhaopian() {
+        return zhaopian;
+    }
+
+    public void setZhaopian(byte[] zhaopian) {
+        this.zhaopian = zhaopian;
+    }
 
     public String getXuehao() {
         return xuehao;
@@ -51,13 +60,6 @@ public class StudentTable {
         this.chushengshijian = chushengshijian;
     }
 
-    public Blob getZhaopian() {
-        return zhaopian;
-    }
-
-    public void setZhaopian(Blob zhaopian) {
-        this.zhaopian = zhaopian;
-    }
 
 
 
@@ -91,5 +93,13 @@ public class StudentTable {
 
     public void setZhongxuefen(int zhongxuefen) {
         this.zhongxuefen = zhongxuefen;
+    }
+
+    public String getBeizhu() {
+        return beizhu;
+    }
+
+    public void setBeizhu(String beizhu) {
+        this.beizhu = beizhu;
     }
 }
